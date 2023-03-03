@@ -38,13 +38,13 @@ io.on('connection', (socket) => {
     });
 
     // send message to room
-    socket.on('sendMessage', (message,msgId) => {
+    socket.on('sendMessage', (message) => {
         // get room name where user is present
         const roomName = Object.keys(rooms).find((room) => rooms[room].find((user) => user.id === socket.id));
         // get user name from rooms object
         const userName = rooms[roomName].find((user) => user.id === socket.id).name;
         console.log(`${userName} sent message to room ${roomName}: ${message}`);
-        io.in(roomName).emit('message', { userName, message,msgId });
+        io.in(roomName).emit('message', { userName, message });
     });
 
     // disconnect
